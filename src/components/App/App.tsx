@@ -9,6 +9,8 @@ import { Route, Routes } from "react-router-dom";
 import BlogPost from "../BlogPost/BlogPost";
 import { useEffect } from "react";
 import { getPosts } from "../../services/getPosts";
+import SignUp from "../../pages/SignUp/SignUp";
+import Login from "../../pages/Login/Login";
 
 export default function App() {
       const dispatch = useDispatch<AppDispatcher>();
@@ -32,6 +34,9 @@ export default function App() {
                     <Route path="/" element={<BlogList />} />
                     <Route path="/articles" element={<BlogList />} />
                     <Route path="/article/:slug" element={<BlogPost />} />
+                    <Route path="/signup" element={<SignUp />} />
+                    <Route path="/login" element={<Login />} />
+
                 </Routes>
              
              <BlogPagination current={currentPage} total={totalPages} onChange={handlePageChange} />

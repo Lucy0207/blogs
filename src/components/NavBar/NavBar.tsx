@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import styles from "./NavBar.module.css"
 
 export default function NavBar() {
@@ -5,8 +6,8 @@ export default function NavBar() {
         <header className={styles["navigation-panel"]}>
             <h6>RealWorld Blog</h6>
             <div className={styles["navigation-buttons"]}>
-                <button>Sign In</button>
-                <button>Sign Up</button>
+                <Link to={`/login`}>Sign In</Link>
+                <Link to={`/signup`}>Sign Up</Link>
             </div>
         </header>
     )
