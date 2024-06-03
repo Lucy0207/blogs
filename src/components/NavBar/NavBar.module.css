@@ -1,0 +1,37 @@
+.navigation-panel {
+    margin-bottom: 24px;
+width: 100%;
+        background: rgb(255, 255, 255);
+       padding: 9px 22px;
+       display: flex;
+       justify-content: space-between;
+}
+
+h6 {
+    color: rgba(0, 0, 0, 0.85);
+
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 28px;
+        letter-spacing: 0%;
+        text-align: left;
+        margin: 0;
+        padding: 9px 22px;
+}
+
+.navigation-buttons {
+    padding: 22px;
+    
+}
+
+.navigation-buttons button {
+border: none;
+    background-color: white;
+    color: rgba(0, 0, 0, 0.85);
+       
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 28px;
+        letter-spacing: 0%;
+        text-align: left;
+}
