@@ -2,12 +2,18 @@ import styles from "./SignUp.module.css"
 import {useForm, SubmitHandler} from "react-hook-form"
 import Headling from "../../components/Headling/Headling";
 import Button from "../../components/Button/Button";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatcher, RootState } from "../../store/store";
+import { useEffect } from "react";
+import { userActions } from "../../store/user.slice";
+import { signup } from "../../store/user.slice";
 
 export type SignupForm = {
  email: string;
   password: string;
   confirmPassword: string;
-  name: string;
+  username: string;
   terms: boolean;
 }
 
@@ -19,19 +25,36 @@ export default function SignUp() {
      formState: { errors }
   } = useForm<SignupForm>();
 
-   const onSubmit: SubmitHandler<SignupForm> = (data) => console.log(data)
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatcher>();
+  const {jwt, signupErrorMessage} = useSelector((s: RootState) => s.user);
+
+  useEffect(() => {
+    if(jwt) {
+        navigate('/')
+    }
+  },
+   [jwt, navigate])
+
+
+   const onSubmit: SubmitHandler<SignupForm> = (data) => {
+        dispatch(userActions.clearSignupError())
+        const {email, username, password} = data;
+        dispatch(signup({email, password, username}));
+   }
  const password = watch("password", "");
     return (
         <div className={styles["signup"]}>
             <Headling>Create new account</Headling>
+            {signupErrorMessage &&<div className={styles['error']}>{signupErrorMessage}</div>}
             <form  className={styles['form']} onSubmit={handleSubmit(onSubmit)}>
                 <div className={styles['field']}>
 				<label htmlFor="name">Username</label>
-				<input id='name' type ="text" placeholder='Username'  {... register("name", {required: "the username is required", maxLength: {
-                    value: 20, message: "your username is too long"
-                }, minLength: {value: 3, message: "your username is too short"}})}/>
+				<input id='name' type ="text" placeholder='Username'  {... register("username", {required: "the username is required", maxLength: {
+                    value: 20, message: "Your username is too long"
+                }, minLength: {value: 3, message: "Your username is too short"}})}/>
 			</div>
-             {errors.name && <p>{errors.name.message}</p>}
+             {errors.username && <p className={styles["error"]}>{errors.username.message}</p>}
             <div className={styles['field']}>
 				<label htmlFor="email">Email address</label>
 				<input id='email' type="email" placeholder='Email address' {... register("email", {
@@ -41,7 +64,7 @@ export default function SignUp() {
                 message: "Entered value does not match email format"
               }
             })}/>
-             {errors.email && <p>{errors.email.message}</p>}
+             {errors.email && <p className={styles["error"]}>{errors.email.message}</p>}
 			</div>
             <div className={styles['field']}>
 				<label htmlFor="password">Password</label>
@@ -64,7 +87,7 @@ export default function SignUp() {
               validate: (value) =>
                 value === password || "Passwords do not match"
             })}/>
-             {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
+             {errors.confirmPassword && <p className={styles["error"]}>{errors.confirmPassword.message}</p>}
 			</div>
             <div className={styles["terms"]}>
                 <input type="checkbox"  {...register("terms", {
@@ -72,8 +95,9 @@ export default function SignUp() {
             })}></input>
                 <p>I agree to the processing of my personal 
 information</p>
- {errors.terms && <p>{errors.terms.message}</p>}
+
             </div>
+             {errors.terms && <p className={styles["checkbox-error"]}>{errors.terms.message}</p>}
             <Button>Create</Button>
             </form>
             <div  className={styles['links']}>

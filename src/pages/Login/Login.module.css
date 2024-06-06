@@ -58,3 +58,10 @@
     letter-spacing: 0%;
     text-align: center;
 }
+
+.error {
+    color: rgb(245, 34, 45);
+    margin: 0;
+    margin-top: -2px;
+
+}
