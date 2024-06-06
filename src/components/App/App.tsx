@@ -1,5 +1,4 @@
-import styles from "./App.module.css";
-import NavBar from "../NavBar/NavBar";
+
 import BlogList from "../BlogList/BlogList";
 import BlogPagination from "../../UI/BlogPagination/BlogPagination";
 import { useSelector, useDispatch } from "react-redux";
@@ -11,6 +10,7 @@ import { useEffect } from "react";
 import { getPosts } from "../../services/getPosts";
 import SignUp from "../../pages/SignUp/SignUp";
 import Login from "../../pages/Login/Login";
+import Layout from "../../pages/Layout/Layout";
 
 export default function App() {
       const dispatch = useDispatch<AppDispatcher>();
@@ -27,15 +27,18 @@ export default function App() {
     }
     
     return(
-        <div className={styles["main"]}>
-             <NavBar />
+        <div >
+           
              <div>
                 <Routes>
-                    <Route path="/" element={<BlogList />} />
-                    <Route path="/articles" element={<BlogList />} />
-                    <Route path="/article/:slug" element={<BlogPost />} />
-                    <Route path="/signup" element={<SignUp />} />
-                    <Route path="/login" element={<Login />} />
+                    <Route path="/" element={<Layout />}>
+                        <Route index element={<BlogList />} />
+                        <Route path="articles" element={<BlogList />} />
+                        <Route path="article/:slug" element={<BlogPost />} />
+                        <Route path="signup" element={<SignUp />} />
+                        <Route path="login" element={<Login />} />
+                    </Route>
+                    
 
                 </Routes>
              

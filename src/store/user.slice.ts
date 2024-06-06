@@ -1,12 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from 'axios';
-import { LoginResponse } from "../interfaces/Auth.interface";
+
 import { loadState } from "./storage";
 import { Profile } from "../interfaces/User.interface";
 import { RootState } from "./store";
-
-
-
 
 export const PREFIX = "https://blog.kata.academy/api";
 export const JWT_PERSISTENT_STATE ='userData';
@@ -16,23 +13,28 @@ export interface UserPersistentState {
 }
 
 export interface UserState {
-      jwt: string | null,
+    jwt: string | null,
+    user: string,
+	avatar: string,
   loginErrorMessage?: string,
   profile?: Profile,
   signupErrorMessage?: string
 }
 
 const initialState: UserState = {
-    jwt: loadState<UserPersistentState>(JWT_PERSISTENT_STATE)?.jwt ?? null
+    jwt: loadState<UserPersistentState>(JWT_PERSISTENT_STATE)?.jwt ?? null,
+    user: "",
+	avatar: ""
      
 }
+
 
 
 export const signup = createAsyncThunk('user/signup', 
 	async (params: {email: string, password: string, username: string}) => {
         
 		try {
-			const {data} = await axios.post<LoginResponse>(`${PREFIX}/users`, {
+			const {data} = await axios.post(`${PREFIX}/users`, {
                 user: {
                 email: params.email,
 				password: params.password,
@@ -45,7 +47,8 @@ export const signup = createAsyncThunk('user/signup',
     'Content-Type': 'application/json'
   }}
 );      console.log(data)
-            return data;
+       
+            return data.user;
 		}
 		catch(e) {
 			if (e instanceof AxiosError) {
@@ -59,14 +62,21 @@ export const signup = createAsyncThunk('user/signup',
 export const login = createAsyncThunk('user/login', 
 	async (params: {email: string, password: string}) => {
 		try {
-			const {data} = await axios.post<LoginResponse>(`${PREFIX}/users/login`, {
+			const {data} = await axios.post(`${PREFIX}/users/login`, {
                 user: {
                 email: params.email,
 				password: params.password
                 }
 				
-			});
-			return data;
+			},
+         {
+  headers: {
+    'Content-Type': 'application/json'
+  }}
+);
+
+
+			return data.user;
 		}
 		catch(e) {
 			if (e instanceof AxiosError) {
@@ -111,6 +121,8 @@ export const userSlice = createSlice({
 				return;
 			}
 			state.jwt = action.payload.token;
+            state.user = action.payload.username;
+			localStorage.setItem("user", action.payload.username)
 		});
 		builder.addCase(login.rejected, (state, action) => {
 			state.loginErrorMessage = action.error.message;
@@ -125,6 +137,7 @@ export const userSlice = createSlice({
 				return;
 			}
 			state.jwt = action.payload.token;
+            state.user = action.payload.username
             
 		});
 		builder.addCase(signup.rejected, (state, action) => {
