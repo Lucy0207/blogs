@@ -1,0 +1,50 @@
+.edit-profile {
+    display: flex;
+        width: 311px;
+        flex-direction: column;
+        border: 1px solid rgb(217, 217, 217);
+        border-radius: 6px;
+        box-shadow: 0px 0.61px 2.93px 0px rgba(0, 0, 0, 0.02), 0px 1.46px 7.05px 0px rgba(0, 0, 0, 0.03), 0px 2.75px 13.27px 0px rgba(0, 0, 0, 0.04), 0px 4.91px 23.68px 0px rgba(0, 0, 0, 0.04), 0px 9.19px 44.28px 0px rgba(0, 0, 0, 0.05), 0px 22px 106px 0px rgba(0, 0, 0, 0.07);
+        background: rgb(255, 255, 255);
+        padding: 48px 32px 48px 32px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+
+}
+
+.field input {
+    padding: 10px 10px;
+    height: 22px;
+    color: rgb(191, 191, 191);
+    font-family: "Roboto";
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0%;
+    text-align: left;
+}
+
+.field label {
+    color: rgb(38, 38, 38);
+    font-family: "Roboto";
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0%;
+    text-align: left;
+}
+
+.field:last-of-type {
+    margin-bottom: 21px;
+}

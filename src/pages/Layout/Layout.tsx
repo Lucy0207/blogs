@@ -30,7 +30,7 @@ export default function Layout() {
             ) : (
                 <div className={styles["profile-buttons"]}>
                 <Link to={`/login`}><NavigationButton appearance="small">Create article</NavigationButton></Link>
-                <UserProfile />
+                <Link to={`/profile`}><UserProfile /></Link>
                 <Link to={`/signup`}><NavigationButton appearance="big" onClick={logout}>Log out</NavigationButton></Link>
             </div>
             )} 

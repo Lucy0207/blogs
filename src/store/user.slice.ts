@@ -15,7 +15,7 @@ export interface UserPersistentState {
 export interface UserState {
     jwt: string | null,
     user: string,
-	avatar: string,
+	image: string,
   loginErrorMessage?: string,
   profile?: Profile,
   signupErrorMessage?: string
@@ -24,7 +24,7 @@ export interface UserState {
 const initialState: UserState = {
     jwt: loadState<UserPersistentState>(JWT_PERSISTENT_STATE)?.jwt ?? null,
     user: "",
-	avatar: ""
+	image: ""
      
 }
 
@@ -87,15 +87,24 @@ export const login = createAsyncThunk('user/login',
 	}
 );
 
-export const getProfile = createAsyncThunk<Profile, void, {state: RootState}>('user/getProfile', 
-	async (_, thunkAPI) => {
+export const editProfile = createAsyncThunk<Profile['user'], Partial<Profile['user']>, { state: RootState }>('user/editProfile', 
+	async (params, thunkAPI) => {
 		const jwt = thunkAPI.getState().user.jwt;
-		const {data} = await axios.get<Profile>(`${PREFIX}/user`, {
+		const {data} = await axios.put<Profile>(`${PREFIX}/user`, {
+			user: {
+				email: params.email,
+				username: params.username,
+				image: params.image,
+				password: params.password
+			}
+		},
+		
+		{
 			headers: {
-				Authorization: `Bearer ${jwt}`
+				Authorization: `Token ${jwt}`
 			}
 		});
-		return data;
+		return data.user;
 	}
 );
 
@@ -128,8 +137,11 @@ export const userSlice = createSlice({
 			state.loginErrorMessage = action.error.message;
 
 		});
-		builder.addCase(getProfile.fulfilled, (state, action) => {
-			state.profile = action.payload;
+		builder.addCase(editProfile.fulfilled, (state, action) => {
+			state.user = action.payload.username;
+			state.image = action.payload.image;
+			localStorage.setItem("user", action.payload.username);
+			localStorage.setItem("avatar", action.payload.image)
 		});
 		builder.addCase(signup.fulfilled, (state, action) => {
 			if (!action.payload) {

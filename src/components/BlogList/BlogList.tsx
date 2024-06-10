@@ -1,11 +1,21 @@
 import styles from "./BlogList.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Blog from "../Blog/Blog";
-import { RootState } from "../../store/store";
+import { AppDispatcher, RootState } from "../../store/store";
+import { blogAction } from "../../store/blogs.slice";
+import BlogPagination from "../../UI/BlogPagination/BlogPagination";
 
 export default function BlogList() {
 
 const blogs = useSelector((s: RootState) => s.blogs.blogs)
+const totalPages = useSelector((s: RootState) => s.blogs.totalPages);
+const currentPage = useSelector((s: RootState) => s.blogs.currentPage)
+const dispatch = useDispatch<AppDispatcher>();
+
+    const handlePageChange = (page: number) => {
+        
+        dispatch(blogAction.setPage(page))
+    }
 
 
     return (
@@ -25,6 +35,7 @@ const blogs = useSelector((s: RootState) => s.blogs.blogs)
           />
         );
       })}
+            <BlogPagination current={currentPage} total={totalPages} onChange={handlePageChange} />
             </main>
         
     )

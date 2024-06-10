@@ -1,10 +1,13 @@
 
 export interface Profile {
-    email: string;
-    address: string;
+    user: {
+ email: string;
+    bio: string;
     username: string;
     token: string;
-    bio: string;
-    image: string
+     image: string;
+     password: string
+    }
+   
 
 }
