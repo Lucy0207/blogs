@@ -1,9 +1,6 @@
-
 import BlogList from "../BlogList/BlogList";
-
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatcher } from "../../store/store";
-
 import { Route, Routes } from "react-router-dom";
 import BlogPost from "../BlogPost/BlogPost";
 import { useEffect } from "react";
@@ -12,6 +9,9 @@ import SignUp from "../../pages/SignUp/SignUp";
 import Login from "../../pages/Login/Login";
 import Layout from "../../pages/Layout/Layout";
 import EditProfile from "../../pages/EditProfile/EditProfile";
+
+import CreateArticlePage from "../../pages/CreateArticlePage/CreateArticlePage";
+import RequireAuth from "../../hoc/RequireAuth";
 
 export default function App() {
       const dispatch = useDispatch<AppDispatcher>();
@@ -36,6 +36,12 @@ export default function App() {
                         <Route path="signup" element={<SignUp />} />
                         <Route path="login" element={<Login />} />
                         <Route path="profile" element={<EditProfile />}/>
+                        <Route path="new-article" element={
+                        <RequireAuth>
+                            <CreateArticlePage />
+                        </RequireAuth>
+                        }/>
+
                     </Route>
                     
 

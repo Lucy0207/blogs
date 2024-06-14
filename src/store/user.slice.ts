@@ -150,7 +150,7 @@ export const userSlice = createSlice({
 			}
 			state.jwt = action.payload.token;
             state.user = action.payload.username
-            
+            localStorage.setItem("user", action.payload.username)
 		});
 		builder.addCase(signup.rejected, (state, action) => {
 			state.signupErrorMessage = action.error.message;

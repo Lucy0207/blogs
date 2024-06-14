@@ -5,6 +5,7 @@ import {useForm, SubmitHandler} from "react-hook-form"
 import { AppDispatcher } from "../../store/store";
 import { editProfile } from "../../store/user.slice";
 import Button from "../../components/Button/Button";
+import { useNavigate } from "react-router-dom";
 
 export type EditProfileForm = {
  email: string;
@@ -21,11 +22,13 @@ export default function EditProfile() {
   } = useForm<EditProfileForm>();
 
   const dispatch = useDispatch<AppDispatcher>();
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<EditProfileForm> = (data) => {
         
         const {email, username, password, image} = data;
-        dispatch(editProfile({email, username, password, image}))
+        dispatch(editProfile({email, username, password, image}));
+        navigate("/articles")
    }
 
     return (
@@ -68,7 +71,7 @@ export default function EditProfile() {
 				<label htmlFor="image">Avatar image(url)</label>
 				<input id='image' type ="text" placeholder='Avatar image'  {... register("image", {required: "the url is required"})}/>
 			</div>
-             <Button>Save</Button>
+             <Button className={styles["profile-button"]}>Save</Button>
             </form>
         </div>
     )

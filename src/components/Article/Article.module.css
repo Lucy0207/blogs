@@ -1,6 +1,6 @@
-.edit-profile {
+.article {
     display: flex;
-        width: 311px;
+        width: 938px;
         flex-direction: column;
         border: 1px solid rgb(217, 217, 217);
         border-radius: 6px;
@@ -35,6 +35,17 @@
     text-align: left;
 }
 
+textarea {
+    padding: 10px 10px;
+    color: rgb(191, 191, 191);
+        font-family: "Roboto";
+        font-size: 16px;
+        font-weight: 400;
+
+        letter-spacing: 0%;
+        text-align: left;
+}
+
 .field label {
     color: rgb(38, 38, 38);
     font-family: "Roboto";
@@ -45,13 +56,26 @@
     text-align: left;
 }
 
-.field:last-of-type {
-    margin-bottom: 21px;
+.tag-field {
+        display: flex;
+align-items: center;
+            gap: 5px;
 }
 
-.profile-button {
- 
-            height: 40px;
+.tag-field input {
+    padding: 10px 10px;
+        height: 20px;
+        color: rgb(191, 191, 191);
+        font-family: "Roboto";
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        letter-spacing: 0%;
+        text-align: left;
+}
+
+.form-button {
+             height: 40px;
             color: rgb(255, 255, 255);
             font-family: "Roboto";
             font-size: 16px;
@@ -62,5 +86,7 @@
             border-radius: 4px;
             background: rgb(24, 144, 255);
             border: none;
+            width: 328px;
+     
         
 }

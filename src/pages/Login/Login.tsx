@@ -1,6 +1,6 @@
 import styles from "./Login.module.css"
 import {useForm} from "react-hook-form"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import Headling from "../../components/Headling/Headling"
 import Button from "../../components/Button/Button"
@@ -17,25 +17,34 @@ export type LoginForm = {
 }
 const Login = () => {
     const navigate = useNavigate();
+	const location = useLocation();
+	const fromPage = location.state?.from?.pathname || '/'
 	const dispatch = useDispatch<AppDispatcher>();
 	const {jwt, loginErrorMessage } = useSelector((s: RootState) => s.user);
 
     useEffect(() => {
 		if (jwt) {
-			navigate('/');
+			if(fromPage) {
+				navigate(fromPage, {replace: true})
+			} else {
+	navigate('/')
+			}
+	
 		}
-	}, [jwt, navigate]);
+	}, [jwt, navigate, fromPage]);
 
     const {    register, handleSubmit,  formState: { errors }   } = useForm<LoginForm>({mode: "onBlur"});
 
     const sendLogin = async (email: string, password: string) => {
 		dispatch(login({email, password}));
+		
     }
 
   const onSubmit = async (data: LoginForm) => {
  dispatch(userActions.clearLoginError());
 const {email, password} = data;
     await sendLogin(email, password)
+	
   }
 
     return (
@@ -53,7 +62,7 @@ const {email, password} = data;
 				<input id='password' type='password' placeholder='Password' {...register("password", {required: "Enter the correct password"})}/>
                             {errors.password && <p className={styles["error"]}>{errors.password.message}</p>}
 			</div>
-			<Button >Login</Button>
+			<Button className={styles["login-button"]} >Login</Button>
 		
 		</form>
 		<div  className={styles['links']}>

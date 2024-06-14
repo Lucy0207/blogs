@@ -1,11 +1,11 @@
-import styles from './Button.module.css';
+
 
 import { ButtonProps } from './Button.props';
 
-export default function Button({ children, ...props }: ButtonProps) {
+export default function Button({ children, className, ...props }: ButtonProps) {
   return (
     <button
-    className={styles["action-button"]}
+    className={className}
       {...props}
     >
       {children}

@@ -12,7 +12,8 @@ function NavigationButton({children, className, appearance = 'small', ...props}:
 			
 			className={cn(styles['button'], className, {
 				[styles['small']] : appearance === 'small',
-				[styles['big']] : appearance === 'big'
+				[styles['big']] : appearance === 'big',
+				[styles['medium']] : appearance === 'medium',
 			})} {...props}>
 			{children}
 		</button>);

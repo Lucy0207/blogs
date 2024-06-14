@@ -3,6 +3,10 @@ import { getPosts } from "../services/getPosts";
 import { BlogPostProps } from "../interfaces/BlogPost.interface";
 import { BlogList } from "../interfaces/BlogList.interface";
 
+
+
+
+
 const initialState: BlogList = {
   blogs: [],
  currentPage: 1,
@@ -11,14 +15,15 @@ const initialState: BlogList = {
 };
 
 
-
-
 export const blogSlice = createSlice({
     name: "blogs",
     initialState,
     reducers: {
         setPage: (state, action: PayloadAction<number>) => {
             state.currentPage = action.payload
+        },
+        addArticle: (state, action) => {
+          state.blogs.unshift(action.payload)
         }
     },
     extraReducers: (builder) => {
@@ -27,6 +32,7 @@ export const blogSlice = createSlice({
       state.blogs = action.payload.articles;
       state.totalPages = Math.ceil(action.payload.articlesCount / 20);
       })
+   
     }
 })
 

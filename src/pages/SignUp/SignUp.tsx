@@ -98,7 +98,8 @@ information</p>
 
             </div>
              {errors.terms && <p className={styles["checkbox-error"]}>{errors.terms.message}</p>}
-            <Button>Create</Button>
+            <Button className={styles["signup-button"]}
+            >Create</Button>
             </form>
             <div  className={styles['links']}>
 			
