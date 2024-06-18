@@ -12,7 +12,7 @@ const Blog: React.FC<BlogPostProps> = ({title, body, favoritesCount, createdAt, 
             <div className={styles["heading"]}>
                 <div className={styles["heading-left"]}>
                     <h5>
-                        <Link to={`/article/${slug}`}>{title}</Link>
+                        <Link to={`/articles/${slug}`}>{title}</Link>
                         </h5>
                     <div className={styles["favourite"]}>
                     <img className={styles["favourite-icon"]}  src="heart1.svg" alt="favourites icon" />

@@ -1,7 +1,7 @@
 .button {
     border: none;
     cursor: pointer;
-background-color: #fff;
+    background-color: #fff;
         font-family: "Inter", sans-serif;
         font-size: 14px;
         font-weight: 400;
@@ -10,17 +10,17 @@ background-color: #fff;
         text-align: center;
         box-sizing: border-box;
         border-radius: 5px;
+        padding: 8px 16px;
 
 }
 
-.small {
+.green {
     color: rgb(82, 196, 26);
      border: 1px solid rgb(82, 196, 26);
-    width: 112.23px;
-    height: 31.1px;
+       
 }
 
-.big {
+.black {
 
         color: rgba(0, 0, 0, 0.75);
         font-size: 18px;
@@ -31,13 +31,21 @@ background-color: #fff;
                 
 }
 
-.medium {
-box-sizing: border-box;
-
-    border: 1px solid rgb(245, 34, 45);
+.red {
+  border: 1px solid rgb(245, 34, 45);
+  color:  rgb(245, 34, 45);
     border-radius: 4px;
     width: 118px;
-        height: 44px;
-        align-items: center;
-            padding: 8px 16px 8px 16px;
+  
+  
+}
+
+.blue {
+    color:  rgb(24, 144, 255);
+    width: 136px;
+   
+        border: 1px solid rgb(24, 144, 255);
+
+
+       
 }

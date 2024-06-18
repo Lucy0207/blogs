@@ -3,40 +3,80 @@ import NavigationButton from "../NavigationButton/NavigationButton";
 import Button from "../Button/Button";
 import styles from "./Article.module.css";
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
+import axios, { AxiosError } from "axios";
+import { useParams } from "react-router-dom";
 import { ArticleFormProps } from "./Article.props";
+import { useEffect} from "react";
+import { PREFIX } from "../../store/user.slice";
 
 export type FormProps = {
   title: string;
   description: string;
   body: string;
   username?: string;
-  tags: { name: string }[];
+  tagList: { name: string }[];
 };
 
 const ArticleForm = ({ articleTitle, handleOnSubmit }: ArticleFormProps) => {
-  const {
+  const { slug } = useParams();
+
+
+  const getArticle = async (slug: string | undefined) => {
+    try {
+      const { data } = await axios.get(`${PREFIX}/articles/${slug}`);
+  
+      return data.article;
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        throw new Error(e.response?.data.message);
+      }
+      throw e;
+    }
+  };
+
+    const {
     register,
     handleSubmit,
     control,
-    formState: { errors }
+    formState: { errors },
+    reset,
   } = useForm<FormProps>({
     defaultValues: {
       title: '',
       description: '',
       body: '',
       username: '',
-      tags: [{ name: '' }]
+      tagList: [{}]
     }
   });
 
-  const { fields, prepend, remove } = useFieldArray({
-    name: "tags",
+    const { fields, prepend, remove } = useFieldArray({
+    name: "tagList",
     control,
     rules: {
       required: "Please add at least one tag",
       minLength: 1
     }
   });
+
+  useEffect(() => {
+    if (slug) {
+      getArticle(slug).then(article => {
+        if (article) {
+          reset({
+            title: article.title,
+            description: article.description,
+            body: article.body,
+            username: article.username || null,
+            tagList: article.tagList ? article.tagList.map((tag: string) => ({ name: tag })) : [{}]
+          });
+        }
+      });
+    }
+  },[slug, reset] );
+
+
+
 
   const onSubmit: SubmitHandler<FormProps> = (data) => {
     handleOnSubmit(data);
@@ -104,26 +144,26 @@ const ArticleForm = ({ articleTitle, handleOnSubmit }: ArticleFormProps) => {
                 <input
                   type='text'
                   placeholder='Tags'
-                  {...register(`tags.${index}.name`, {
+                  {...register(`tagList.${index}.name`, {
                     required: "Enter a tag name"
                   })}
                 />
                 <NavigationButton
                   onClick={() => remove(index)}
-                  appearance="medium">Delete</NavigationButton>
+                  appearance="red">Delete</NavigationButton>
               </div>
-       {errors.tags?.[index]?.name && (
-                <p className={styles["error"]}>{errors.tags[index]?.name?.message}</p>
-              )} 
+              {errors.tagList?.[index]?.name && (
+                <p className={styles["error"]}>{errors.tagList[index]?.name?.message}</p>
+              )}
             </div>
           </section>
         ))}
 
         <NavigationButton
           onClick={() => prepend({ name: "" })}
-          appearance="medium">Add tag</NavigationButton>
+          appearance="blue" color="11890FF ">Add tag</NavigationButton>
 
-        {errors.tags?.root?.message && <p className={styles["error"]}>{errors.tags.root.message}</p>}
+        {errors.tagList?.root?.message && <p className={styles["error"]}>{errors.tagList.root.message}</p>}
 
         <Button type="submit" className={styles["form-button"]}>Send</Button>
       </form>

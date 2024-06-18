@@ -4,16 +4,17 @@ import cn from "classnames"
 
 
 
-function NavigationButton({children, className, appearance = 'small', ...props}: ButtonProps) {
+function NavigationButton({children, className, appearance = 'green', ...props}: ButtonProps) {
 
 	
 	return (
 		<button   
 			
 			className={cn(styles['button'], className, {
-				[styles['small']] : appearance === 'small',
-				[styles['big']] : appearance === 'big',
-				[styles['medium']] : appearance === 'medium',
+				[styles['red']] : appearance === 'red',
+				[styles['blue']] : appearance === 'blue',
+				[styles['green']] : appearance === 'green',
+				[styles['black']] : appearance === 'black',
 			})} {...props}>
 			{children}
 		</button>);

@@ -12,6 +12,7 @@ import EditProfile from "../../pages/EditProfile/EditProfile";
 
 import CreateArticlePage from "../../pages/CreateArticlePage/CreateArticlePage";
 import RequireAuth from "../../hoc/RequireAuth";
+import EditArticlePage from "../../pages/EditArticlePage/EditArticlePage";
 
 export default function App() {
       const dispatch = useDispatch<AppDispatcher>();
@@ -32,7 +33,7 @@ export default function App() {
                     <Route path="/" element={<Layout />}>
                         <Route index element={<BlogList />} />
                         <Route path="articles" element={<BlogList />} />
-                        <Route path="article/:slug" element={<BlogPost />} />
+                        <Route path="articles/:slug" element={<BlogPost />} />
                         <Route path="signup" element={<SignUp />} />
                         <Route path="login" element={<Login />} />
                         <Route path="profile" element={<EditProfile />}/>
@@ -41,9 +42,16 @@ export default function App() {
                             <CreateArticlePage />
                         </RequireAuth>
                         }/>
+                        <Route path="articles/:slug/edit" element={
+                            <RequireAuth>
+                                <EditArticlePage />
+                            </RequireAuth>
+                        }/>
 
                     </Route>
                     
+                    
+                                      
 
                 </Routes>
              

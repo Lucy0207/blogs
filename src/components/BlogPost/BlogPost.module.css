@@ -1,6 +1,6 @@
 .blogCard {
     width: 941px;
-    /* height: 870px; */
+    height: 870px;
     border-radius: 5px;
     background: rgb(255, 255, 255);
     padding: 15px 19px 15px 14px;
@@ -110,4 +110,10 @@
 .avatar-icon {
     width: 46px;
     height: 46px;
+}
+
+.edit-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
 }

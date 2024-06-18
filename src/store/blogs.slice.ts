@@ -24,6 +24,9 @@ export const blogSlice = createSlice({
         },
         addArticle: (state, action) => {
           state.blogs.unshift(action.payload)
+        },
+        updateArticle: (state, action) => {
+          state.blogs = state.blogs.map(blog => blog.slug === action.payload.slug ? action.payload : blog)
         }
     },
     extraReducers: (builder) => {

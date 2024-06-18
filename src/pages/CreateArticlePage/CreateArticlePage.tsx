@@ -25,7 +25,7 @@ const CreateArticlePage = () => {
                 title: data.title,
                 description: data.description,
                 body: data.body, 
-                tagList: data.tags.map(tag => tag.name)
+                tagList: data.tagList.map(tag => tag.name)
               
             }
          }
@@ -41,6 +41,7 @@ const CreateArticlePage = () => {
             )
 
             dispatch(blogAction.addArticle(response))
+
          } catch (e) {
             {
       if (e instanceof AxiosError) {
@@ -51,7 +52,7 @@ const CreateArticlePage = () => {
     }
          }
  
-        navigate("/")
+        navigate("/articles")
     }
 
     return(
