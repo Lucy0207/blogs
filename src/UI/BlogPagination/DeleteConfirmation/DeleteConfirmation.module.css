@@ -1,0 +1,16 @@
+.delete-button {
+    border: 1px solid rgb(245, 34, 45);
+        color: rgb(245, 34, 45);
+        border-radius: 4px;
+        width: 118px;
+        height: 39px;
+        font-family: "Inter", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 22px;
+            letter-spacing: 0px;
+            text-align: center;
+            box-sizing: border-box;
+
+      
+}

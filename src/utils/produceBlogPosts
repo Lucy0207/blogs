@@ -1,9 +1,0 @@
-/* import { v4 as uuidv4 } from 'uuid';
-import Blog from "../components/Blog/Blog"
-import { BlogPostProps } from '../store/blogs.slice';
-
-export function produceBlogPosts(arr: BlogPostProps[]) {
-  return arr.map((blog) => (
-<Blog />
-  ));
-} */

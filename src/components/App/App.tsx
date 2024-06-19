@@ -9,6 +9,7 @@ import SignUp from "../../pages/SignUp/SignUp";
 import Login from "../../pages/Login/Login";
 import Layout from "../../pages/Layout/Layout";
 import EditProfile from "../../pages/EditProfile/EditProfile";
+import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
 
 import CreateArticlePage from "../../pages/CreateArticlePage/CreateArticlePage";
 import RequireAuth from "../../hoc/RequireAuth";
@@ -47,6 +48,8 @@ export default function App() {
                                 <EditArticlePage />
                             </RequireAuth>
                         }/>
+                        <Route path="*" element={<NotFoundPage />} />
+                        <Route path="not-found" element={<NotFoundPage />} />
 
                     </Route>
                     

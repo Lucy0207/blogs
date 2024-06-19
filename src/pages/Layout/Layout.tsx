@@ -21,7 +21,7 @@ export default function Layout() {
     return (
         <>
         <header className={styles["navigation-panel"]}>
-            <h6>RealWorld Blog</h6>
+            <Link to="/"><h6>RealWorld Blog</h6></Link>
             {!jwt ? (
                    <div className={styles["navigation-buttons"]}>
                 <Link to={`/login`}><NavigationButton>Sign In</NavigationButton></Link>

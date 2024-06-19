@@ -1,30 +1,61 @@
 import styles from "./BlogPost.module.css"
 import moment from "moment";
 import Markdown from "react-markdown";
-import { useParams, Link} from "react-router-dom";
-import { useSelector } from "react-redux";
-// import { PostProps } from "../../interfaces/Post.interface";
-import { RootState } from "../../store/store";
+import { useParams, Link, useNavigate} from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import DeleteConfirmation from "../../UI/BlogPagination/DeleteConfirmation/DeleteConfirmation";
+import { AppDispatcher, RootState } from "../../store/store";
 import NavigationButton from "../NavigationButton/NavigationButton";
+import {message} from "antd"
+import { useEffect } from "react";
+import { deletePosts } from "../../services/deletePosts";
 
 
 const BlogPost: React.FC = () => {
       const { slug } = useParams();
       
        const post = useSelector((state: RootState) => state.blogs.blogs.find(blog => blog.slug === slug));
-     
+
+     const navigate = useNavigate();
+     const dispatch = useDispatch<AppDispatcher>();
 
        const user = localStorage.getItem("user")
 
+          useEffect(() => {
+        if (!post) {
+
+            navigate('/not-found', { replace: true });
+        }
+    }, [post, navigate]);
+
 
   if (!post) {
-    return <div>Loading...</div>;
+
+        return <div>Loading...</div>;
   }
 
   const { createdAt, description, title, favoritesCount, author, body } = post;
      const creationTime: string = moment(createdAt).format('MMMM D, YYYY');
     const avatar: string = "https://platform.kata.academy/uploads/student_atars/17730.jpg";
- 
+
+
+
+
+  const confirmDelete = async () => {
+    if (!slug) {
+      message.error('Invalid post identifier');
+      return;
+    }
+
+    try {
+      await dispatch(deletePosts(slug)).unwrap();
+
+      navigate('/'); 
+    } catch (error) {
+      message.error('Failed to delete post');
+    }
+  }
+
 return(
     <article className={styles["blogCard"]}>
             <header className={styles["heading"]}>
@@ -46,8 +77,11 @@ return(
                     </div>
                 </div>
                      {user===author.username && <div className={styles["edit-buttons"]}>
-                        <NavigationButton appearance="red">Delete</NavigationButton>
-                <Link to={`/articles/${slug}/edit`}><NavigationButton appearance="blue">Edit</NavigationButton></Link>
+                        {/* <NavigationButton onClick={handleDelete} appearance="red">Delete</NavigationButton> */}
+                                <DeleteConfirmation
+                                
+                                onConfirm={confirmDelete} />
+                <Link to={`/articles/${slug}/edit`}><NavigationButton appearance="green">Edit</NavigationButton></Link>
                             </div>}
                 </div>
                 
@@ -56,6 +90,7 @@ return(
         
             <div><Markdown>{description}</Markdown></div>
             <div><Markdown>{body}</Markdown></div>
+
 
     </article>
 )

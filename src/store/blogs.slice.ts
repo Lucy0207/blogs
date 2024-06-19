@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getPosts } from "../services/getPosts";
 import { BlogPostProps } from "../interfaces/BlogPost.interface";
 import { BlogList } from "../interfaces/BlogList.interface";
+import { deletePosts } from "../services/deletePosts";
 
 
 
@@ -27,6 +28,9 @@ export const blogSlice = createSlice({
         },
         updateArticle: (state, action) => {
           state.blogs = state.blogs.map(blog => blog.slug === action.payload.slug ? action.payload : blog)
+        },
+        deleteArticle: (state, action: PayloadAction<string>) => {
+          state.blogs = state.blogs.filter(blog => blog.slug !== action.payload)
         }
     },
     extraReducers: (builder) => {
@@ -34,7 +38,10 @@ export const blogSlice = createSlice({
       state.status = "success";
       state.blogs = action.payload.articles;
       state.totalPages = Math.ceil(action.payload.articlesCount / 20);
-      })
+      });
+     builder.addCase(deletePosts.fulfilled, (state, action: PayloadAction<string>) => {
+      state.blogs = state.blogs.filter(blog => blog.slug !== action.payload);
+    });
    
     }
 })
