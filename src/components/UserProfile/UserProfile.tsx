@@ -5,7 +5,7 @@ export default function UserProfile() {
         const avatar = localStorage.getItem("avatar")
         const currentUser = localStorage.getItem("user")
    
-        console.log(`Current user is ${currentUser}`)
+  
 
     return (
         <div className={styles["user-profile"]}>

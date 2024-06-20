@@ -6,7 +6,7 @@ export interface BlogPostProps {
   createdAt: string;
   // updatedAt: string;
   // tagList: string[];
-  // favorited: boolean;
+  favorited: boolean;
 favoritesCount: number;
 author: {
     username: string;

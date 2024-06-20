@@ -21,7 +21,7 @@ const dispatch = useDispatch<AppDispatcher>();
     return (
         <main className={styles["blog-list"]}>
       {blogs.length > 0 && blogs.map((blog) => {
-        const { title, slug, favoritesCount, body, author, createdAt, description} = blog;
+        const { title, slug, favoritesCount, body, author, createdAt, description, favorited} = blog;
         return (
           <Blog
             key={slug} 
@@ -32,6 +32,7 @@ const dispatch = useDispatch<AppDispatcher>();
             author={author}
             createdAt={createdAt}
             description={description}
+            favorited={favorited}
           />
         );
       })}

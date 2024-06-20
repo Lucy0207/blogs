@@ -3,6 +3,8 @@ import { getPosts } from "../services/getPosts";
 import { BlogPostProps } from "../interfaces/BlogPost.interface";
 import { BlogList } from "../interfaces/BlogList.interface";
 import { deletePosts } from "../services/deletePosts";
+import { setLikes } from "../services/handleLikes";
+import { deleteLikes } from "../services/handleLikes";
 
 
 
@@ -42,6 +44,14 @@ export const blogSlice = createSlice({
      builder.addCase(deletePosts.fulfilled, (state, action: PayloadAction<string>) => {
       state.blogs = state.blogs.filter(blog => blog.slug !== action.payload);
     });
+    builder.addCase(setLikes.fulfilled, (state, action: PayloadAction<string>) => {
+          const blog = state.blogs.find(blog => blog.slug === action.payload);
+      if (blog) blog.favoritesCount += 1;
+    });
+    builder.addCase(deleteLikes.fulfilled, (state, action: PayloadAction<string>) => {
+       const blog = state.blogs.find(blog => blog.slug === action.payload);
+      if (blog) blog.favoritesCount -= 1;
+    })
    
     }
 })
