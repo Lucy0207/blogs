@@ -40,7 +40,10 @@ const CreateArticlePage = () => {
 		}
             )
 
-            dispatch(blogAction.addArticle(response))
+            await dispatch(blogAction.addArticle(response.data.article))
+             console.log('Article added to state');
+             navigate("/", {replace: true})
+                   console.log('Navigating to /articles');
 
          } catch (e) {
             {
@@ -52,7 +55,7 @@ const CreateArticlePage = () => {
     }
          }
  
-        navigate("/articles")
+       
     }
 
     return(

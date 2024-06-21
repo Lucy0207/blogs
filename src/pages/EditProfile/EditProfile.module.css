@@ -64,3 +64,16 @@
             border: none;
         
 }
+
+.error {
+    color: rgb(245, 34, 45);
+    margin: 0;
+    margin-top: -2px;
+    font-size: 14px;
+}
+
+.field input.error {
+    border: 2px solid red;
+    border-radius: 4px;
+
+}

@@ -9,6 +9,8 @@ import NavigationButton from "../NavigationButton/NavigationButton";
 import {message} from "antd"
 import { useEffect } from "react";
 import { deletePosts } from "../../services/deletePosts";
+import BlogHeading from "../BlogHeading/BlogHeading";
+
 
 
 const BlogPost: React.FC = () => {
@@ -19,9 +21,12 @@ const BlogPost: React.FC = () => {
      const navigate = useNavigate();
      const dispatch = useDispatch<AppDispatcher>();
 
+
        const user = localStorage.getItem("user")
 
-          useEffect(() => {
+
+
+      useEffect(() => {
         if (!post) {
 
             navigate('/not-found', { replace: true });
@@ -34,10 +39,13 @@ const BlogPost: React.FC = () => {
         return <div>Loading...</div>;
   }
 
-  const { createdAt, description, title, favoritesCount, author, body } = post;
+  const { createdAt, description, title, favoritesCount, author, body, favorited, tagList } = post;
+  
      const creationTime: string = moment(createdAt).format('MMMM D, YYYY');
     const avatar: string = "https://platform.kata.academy/uploads/student_atars/17730.jpg";
 
+
+ 
 
 
 
@@ -56,16 +64,19 @@ const BlogPost: React.FC = () => {
     }
   }
 
+
+
 return(
     <article className={styles["blogCard"]}>
             <header className={styles["heading"]}>
-                <div className={styles["heading-left"]}>
-                    <h5>{title}</h5>
-                    <div className={styles["favourite"]}>
-                    <img className={styles["favourite-icon"]}  src="heart1.svg" alt="favourites icon" />
-                    <span className={styles["favourite-count"]} > {favoritesCount}</span>
-                    </div>                    
-                </div>
+                         {slug &&
+                  <BlogHeading 
+                slug={slug}
+                title={title}
+                favoritesCount={favoritesCount}
+                favorited={favorited}          
+                            />}
+              
                 <div>
                     <div className={styles["heading-right"]}>
                     <div className={styles["person"]}>
@@ -76,8 +87,9 @@ return(
                         <img className={styles["avatar-icon"]} src={author.image === avatar ? avatar : author.image}  alt="avatar picture" />
                     </div>
                 </div>
+                
                      {user===author.username && <div className={styles["edit-buttons"]}>
-                        {/* <NavigationButton onClick={handleDelete} appearance="red">Delete</NavigationButton> */}
+
                                 <DeleteConfirmation
                                 
                                 onConfirm={confirmDelete} />
@@ -86,6 +98,11 @@ return(
                 </div>
                 
             </header>
+            <div className={styles["tags"]}>
+                {tagList && tagList.map((tag, index) => (
+                    <span key={index} className={styles["tag"]}>{tag + " "}</span>
+                ))}
+            </div>
        
         
             <div><Markdown>{description}</Markdown></div>

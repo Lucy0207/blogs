@@ -9,7 +9,7 @@
 
 }
 
-.favourite {
+/* .favourite {
     padding: 5px;
     margin-top: 2px;
     display: flex;
@@ -32,7 +32,7 @@
     letter-spacing: 0px;
     text-align: left;
     align-self: center;
-}
+} */
 
 .heading {
     display: flex;
@@ -40,12 +40,12 @@
     height: 46px;
 }
 
-.heading-left {
+/* .heading-left {
     display: flex;
-    justify-content: space-around;
-    flex-direction: row;
-    height: 30px;
-    width: 320px;
+        justify-content: start;
+        flex-direction: row;
+        height: 30px;
+        width: 320px;
 
 }
 
@@ -60,7 +60,7 @@
     color: rgb(24, 144, 255);
     overflow-wrap: anywhere;
     overflow: hidden;
-}
+} */
 
 .heading-right {
     display: flex;
@@ -70,18 +70,18 @@
 .person {
     display: flex;
     flex-direction: column;
-    align-items: center;
+
     justify-content: center;
 }
 
 .person-name {
     color: rgba(0, 0, 0, 0.85);
-    margin: 0;
     font-size: 18px;
-    font-weight: 400;
-    line-height: 28px;
-    letter-spacing: 0%;
-    text-align: left;
+        font-weight: 400;
+        line-height: 28px;
+        letter-spacing: 0%;
+        text-align: left;
+        padding: 0;
 }
 
 .person-date {
@@ -110,10 +110,25 @@
 .avatar-icon {
     width: 46px;
     height: 46px;
+    border-radius: 50%;
 }
 
 .edit-buttons {
     margin-top: 20px;
     display: flex;
     gap: 10px;
+}
+
+.tag {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 2px;
+    margin-right: 8px;
+    padding: 2px 3px;
+    color: rgba(0, 0, 0, 0.5);
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+    letter-spacing: 0%;
+    text-align: left;
 }

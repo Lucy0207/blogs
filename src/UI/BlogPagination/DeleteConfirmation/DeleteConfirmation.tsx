@@ -8,7 +8,7 @@ import { DeleteConfirmationProps } from "./DeleteConfrimation.props";
 
 const DeleteConfirmation: React.FC<DeleteConfirmationProps> = ({onConfirm}) => (
   <Popconfirm
-    title="Are you sure to delete this task?"
+    title="Are you sure to delete this post?"
     description=""
     onConfirm={
         () => {

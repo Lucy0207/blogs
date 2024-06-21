@@ -4,7 +4,7 @@ import cn from "classnames"
 
 
 
-function NavigationButton({children, className, appearance = 'green', ...props}: ButtonProps) {
+function NavigationButton({children, className, appearance, ...props}: ButtonProps) {
 
 	
 	return (

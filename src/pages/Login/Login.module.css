@@ -21,8 +21,8 @@
     flex-direction: column;
     gap: 5px;
 
-
 }
+
 
 .field input {
     padding: 10px 10px;
@@ -35,6 +35,7 @@
     letter-spacing: 0%;
     text-align: left;
 }
+
 
 .field label {
     color: rgb(38, 38, 38);
@@ -63,7 +64,7 @@
     color: rgb(245, 34, 45);
     margin: 0;
     margin-top: -2px;
-
+    font-size: 14px;
 }
 
 .login-button {
@@ -79,5 +80,15 @@
             border-radius: 4px;
             background: rgb(24, 144, 255);
             border: none;
+   
+}
+
+.sign-up {
+    color: rgb(24, 144, 255)
+}
+
+.field input.error {
+    border: 2px solid red;
+    border-radius: 4px;
    
 }

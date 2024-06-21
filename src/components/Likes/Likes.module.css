@@ -1,0 +1,35 @@
+.favourite {
+    padding: 5px;
+    margin-top: 2px;
+    ;
+    display: flex;
+    height: 14.23px
+}
+
+.favourite-icon {
+    cursor: pointer;
+    width: 16px;
+    height: 14.23px;
+    margin-right: 4px;
+    transition: transform 0.3s ease;
+
+}
+
+.favourite-icon:hover {
+    transform: scale(1.1);
+}
+
+.favourite-icon.favorited {
+    filter: drop-shadow(0 0 2px red);
+}
+
+.favourite-count {
+    color: rgba(0, 0, 0, 0.75);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0px;
+    text-align: left;
+    align-self: center;
+    margin-top: 2px;
+}

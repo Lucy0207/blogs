@@ -24,7 +24,9 @@ export interface UserState {
 const initialState: UserState = {
     jwt: loadState<UserPersistentState>(JWT_PERSISTENT_STATE)?.jwt ?? null,
     user: "",
-	image: ""
+	image: "",
+	signupErrorMessage: '',
+	loginErrorMessage: ''
      
 }
 
@@ -133,8 +135,10 @@ export const userSlice = createSlice({
             state.user = action.payload.username;
 			localStorage.setItem("user", action.payload.username)
 		});
-		builder.addCase(login.rejected, (state, action) => {
-			state.loginErrorMessage = action.error.message;
+		builder.addCase(login.rejected, (state) => {
+			// state.loginErrorMessage = action.error.message;
+		state.loginErrorMessage = "Either password or username is incorrect"
+
 
 		});
 		builder.addCase(editProfile.fulfilled, (state, action) => {
@@ -152,8 +156,8 @@ export const userSlice = createSlice({
             state.user = action.payload.username
             localStorage.setItem("user", action.payload.username)
 		});
-		builder.addCase(signup.rejected, (state, action) => {
-			state.signupErrorMessage = action.error.message;
+		builder.addCase(signup.rejected, (state) => {
+			state.signupErrorMessage = "Either email or username is already in use"
 
 		});
 	}

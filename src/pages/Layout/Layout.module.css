@@ -20,16 +20,17 @@ h6 {
         padding: 9px 22px;
 }
 
+.heading {
+    text-decoration: none;
+}
+
 .navigation-buttons {
     padding: 22px;
     
 }
 
-.navigation-buttons button {
-border: none;
-    background-color: white;
-    color: rgba(0, 0, 0, 0.85);
-       
+.navigation-buttons button  {
+    
         font-size: 18px;
         font-weight: 400;
         line-height: 28px;
@@ -51,4 +52,25 @@ border: none;
     justify-content: space-between;
     align-items: center;
  
+}
+
+.sign-up {
+    color: rgb(82, 196, 26);
+        font-family: "Inter", sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 28px;
+        letter-spacing: 0%;
+        text-align: left;
+         border: 1px solid rgb(82, 196, 26);
+            border-radius: 5px;
+}
+
+.login {
+    color: rgba(0, 0, 0, 0.85);
+    border: none;
+}
+
+.user {
+    text-decoration: none;
 }

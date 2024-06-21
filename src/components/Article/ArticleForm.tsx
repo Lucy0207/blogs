@@ -90,6 +90,7 @@ const ArticleForm = ({ articleTitle, handleOnSubmit }: ArticleFormProps) => {
         <div className={styles['field']}>
           <label htmlFor="title">Title</label>
           <input
+          className={errors.title ? styles["error"] : ""} 
             id='title'
             type="text"
             placeholder='Title'
@@ -108,6 +109,7 @@ const ArticleForm = ({ articleTitle, handleOnSubmit }: ArticleFormProps) => {
         <div className={styles['field']}>
           <label htmlFor="description">Short description</label>
           <input
+          className={errors.description ? styles["error"] : ""} 
             id='description'
             type="text"
             placeholder='Short description'
@@ -126,6 +128,7 @@ const ArticleForm = ({ articleTitle, handleOnSubmit }: ArticleFormProps) => {
         <div className={styles['field']}>
           <label htmlFor="body">Text</label>
           <textarea
+          className={errors.body ? styles["error"] : ""} 
             id='body'
             placeholder='Text'
             rows={10}
@@ -142,6 +145,7 @@ const ArticleForm = ({ articleTitle, handleOnSubmit }: ArticleFormProps) => {
             <div className={styles['field']}>
               <div className={styles["tag-field"]}>
                 <input
+                className={errors.tagList ? styles["error"] : ""} 
                   type='text'
                   placeholder='Tags'
                   {...register(`tagList.${index}.name`, {

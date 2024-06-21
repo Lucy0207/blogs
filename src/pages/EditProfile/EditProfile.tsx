@@ -19,7 +19,7 @@ export default function EditProfile() {
     register,
     handleSubmit,
      formState: { errors }
-  } = useForm<EditProfileForm>();
+  } = useForm<EditProfileForm>({mode: "onChange"});
 
   const dispatch = useDispatch<AppDispatcher>();
   const navigate = useNavigate();
@@ -37,25 +37,28 @@ export default function EditProfile() {
             <form className={styles["form"]} onSubmit={handleSubmit(onSubmit)}>
                 <div className={styles['field']}>
 				<label htmlFor="name">Username</label>
-				<input id='name' type ="text" placeholder='Username'  {... register("username", {required: "the username is required", maxLength: {
+				<input className={errors.username ? styles["error"] : ""}  id='name' type ="text" placeholder='Username'  {... register("username", {required: "the username is required",  minLength: {value: 3, message: "Your username is too short"}, maxLength: {
                     value: 20, message: "Your username is too long"
-                }, minLength: {value: 3, message: "Your username is too short"}})}/>
+                },
+                })}/>
 			</div>
              {errors.username && <p className={styles["error"]}>{errors.username.message}</p>}
              <div className={styles['field']}>
 				<label htmlFor="email">Email address</label>
-				<input id='email' type="email" placeholder='Email address' {... register("email", {
+				<input className={errors.email ? styles["error"] : ""}  id='email' type="email" placeholder='Email address' {... register("email", {
               required: "Email is required",
-              pattern: {
-                value: /^\S+@\S+$/i,
-                message: "Entered value does not match email format"
-              }
+              validate: {
+                minLength: (v) => v.length > 0 || "Email is required",
+                matchPattern: (v) =>
+                  /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+                  "Email address must be a valid address",
+              },
             })}/>
              {errors.email && <p className={styles["error"]}>{errors.email.message}</p>}
 			</div>
             <div className={styles['field']}>
 				<label htmlFor="password">New password</label>
-				<input id='password' type='password' placeholder='New password'  {...register("password", {
+				<input className={errors.password ? styles["error"] : ""}  id='password' type='password' placeholder='New password'  {...register("password", {
               required: "Password is required",
               minLength: {
                 value: 6,
@@ -69,7 +72,16 @@ export default function EditProfile() {
 			</div>
                     <div className={styles['field']}>
 				<label htmlFor="image">Avatar image(url)</label>
-				<input id='image' type ="text" placeholder='Avatar image'  {... register("image", {required: "the url is required"})}/>
+				<input className={errors.image ? styles["error"] : ""}  id='image' type ="text" placeholder='Avatar image'  {... register("image",
+          {
+              required: false,
+              pattern: {
+                value:
+                  /^(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z]{2,}(\.[a-zA-Z]{2,})(\.[a-zA-Z]{2,})?\/[a-zA-Z0-9]{2,}|((https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z]{2,}(\.[a-zA-Z]{2,})(\.[a-zA-Z]{2,})?)|(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})?/g,
+                message: "There must be a valid url",
+              },
+            })
+        }/>
 			</div>
              <Button className={styles["profile-button"]}>Save</Button>
             </form>
