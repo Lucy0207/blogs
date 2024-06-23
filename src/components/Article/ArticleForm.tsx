@@ -6,7 +6,7 @@ import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
 import axios, { AxiosError } from "axios";
 import { useParams } from "react-router-dom";
 import { ArticleFormProps } from "./Article.props";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import { PREFIX } from "../../store/user.slice";
 
 export type FormProps = {
@@ -20,11 +20,9 @@ export type FormProps = {
 const ArticleForm = ({ articleTitle, handleOnSubmit }: ArticleFormProps) => {
   const { slug } = useParams();
 
-
   const getArticle = async (slug: string | undefined) => {
     try {
       const { data } = await axios.get(`${PREFIX}/articles/${slug}`);
-  
       return data.article;
     } catch (e) {
       if (e instanceof AxiosError) {
@@ -34,7 +32,7 @@ const ArticleForm = ({ articleTitle, handleOnSubmit }: ArticleFormProps) => {
     }
   };
 
-    const {
+  const {
     register,
     handleSubmit,
     control,
@@ -46,11 +44,11 @@ const ArticleForm = ({ articleTitle, handleOnSubmit }: ArticleFormProps) => {
       description: '',
       body: '',
       username: '',
-      tagList: [{}]
+      tagList: [{name: ''}]
     }
   });
 
-    const { fields, prepend, remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     name: "tagList",
     control,
     rules: {
@@ -73,10 +71,7 @@ const ArticleForm = ({ articleTitle, handleOnSubmit }: ArticleFormProps) => {
         }
       });
     }
-  },[slug, reset] );
-
-
-
+  }, [slug, reset]);
 
   const onSubmit: SubmitHandler<FormProps> = (data) => {
     handleOnSubmit(data);
@@ -84,13 +79,14 @@ const ArticleForm = ({ articleTitle, handleOnSubmit }: ArticleFormProps) => {
   };
 
   return (
-    <div className={styles["article"]}>
+    <div className={styles.article}>
       <Headling>{articleTitle}</Headling>
-      <form className={styles['form']} onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles['field']}>
+      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+        <div className={styles.field}>
           <label htmlFor="title">Title</label>
           <input
-          className={errors.title ? styles["error"] : ""} 
+           className={styles.input + (errors.title ? ` ${styles["error-input"]}` : '')}
+
             id='title'
             type="text"
             placeholder='Title'
@@ -103,13 +99,14 @@ const ArticleForm = ({ articleTitle, handleOnSubmit }: ArticleFormProps) => {
               maxLength: { value: 35, message: "Maximum 35 characters" },
             })}
           />
-          {errors.title && <p className={styles["error"]}>{errors.title.message}</p>}
+          {errors.title && <p className={styles.error}>{errors.title.message}</p>}
         </div>
 
-        <div className={styles['field']}>
+        <div className={styles.field}>
           <label htmlFor="description">Short description</label>
           <input
-          className={errors.description ? styles["error"] : ""} 
+        className={styles.input + (errors.description ? ` ${styles["error-input"]}` : '')}
+
             id='description'
             type="text"
             placeholder='Short description'
@@ -122,13 +119,14 @@ const ArticleForm = ({ articleTitle, handleOnSubmit }: ArticleFormProps) => {
               maxLength: { value: 35, message: "Maximum 35 characters" },
             })}
           />
-          {errors.description && <p className={styles["error"]}>{errors.description.message}</p>}
+          {errors.description && <p className={styles.error}>{errors.description.message}</p>}
         </div>
 
-        <div className={styles['field']}>
+        <div className={styles.field}>
           <label htmlFor="body">Text</label>
           <textarea
-          className={errors.body ? styles["error"] : ""} 
+       className={styles.input + (errors.body ? ` ${styles["error-input"]}` : '')}
+
             id='body'
             placeholder='Text'
             rows={10}
@@ -136,40 +134,56 @@ const ArticleForm = ({ articleTitle, handleOnSubmit }: ArticleFormProps) => {
               required: "Text is required"
             })}
           />
-          {errors.body && <p className={styles["error"]}>{errors.body.message}</p>}
+          {errors.body && <p className={styles.error}>{errors.body.message}</p>}
         </div>
 
         <label>Tags</label>
-        {fields.map((field, index) => (
-          <section key={field.id}>
-            <div className={styles['field']}>
-              <div className={styles["tag-field"]}>
-                <input
-                className={errors.tagList ? styles["error"] : ""} 
-                  type='text'
-                  placeholder='Tags'
-                  {...register(`tagList.${index}.name`, {
-                    required: "Enter a tag name"
-                  })}
-                />
-                <NavigationButton
-                  onClick={() => remove(index)}
-                  appearance="red">Delete</NavigationButton>
-              </div>
-              {errors.tagList?.[index]?.name && (
-                <p className={styles["error"]}>{errors.tagList[index]?.name?.message}</p>
-              )}
+        <div className={styles.tagWrapper}>
+          <div className={styles["tagSection"]}>
+             {fields.map((field, index) => (
+            <div className={styles.inputTag} key={field.id}>
+              <input
+                className={styles.input + (errors.tagList ? ` ${styles["error-input"]}` : '')}
+
+                type='text'
+                placeholder='Tags'
+                {...register(`tagList.${index}.name`, {
+                  required: "Enter a tag name"
+                })}
+              />
+    <NavigationButton
+                onClick={() => {
+                  if (fields.length > 1) {
+                    remove(index); 
+                  } else {
+                  
+                    reset({
+                      ...reset,
+                      tagList: fields.map((field, index) => index === index ? { name: "" } : field)
+                    });
+                  }
+                }}
+                appearance="red"
+              >
+                Delete
+              </NavigationButton>
+              
             </div>
-          </section>
-        ))}
+          ))}
+          <NavigationButton
+            onClick={() => append({ name: "" })}
+            appearance="blue"
+            color="11890FF"
+            className={styles.addButton}
+          >
+            Add tag
+          </NavigationButton>
+          </div>
+         
+        </div>
+        {errors.tagList?.root?.message && <p className={styles.error}>{errors.tagList.root.message}</p>}
 
-        <NavigationButton
-          onClick={() => prepend({ name: "" })}
-          appearance="blue" color="11890FF ">Add tag</NavigationButton>
-
-        {errors.tagList?.root?.message && <p className={styles["error"]}>{errors.tagList.root.message}</p>}
-
-        <Button type="submit" className={styles["form-button"]}>Send</Button>
+        <Button type="submit" className={styles.formButton}>Send</Button>
       </form>
     </div>
   );

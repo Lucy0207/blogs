@@ -37,6 +37,7 @@
   color:  rgb(245, 34, 45);
     border-radius: 4px;
     width: 118px;
+    height: 44px;
   
   
 }
@@ -44,7 +45,7 @@
 .blue {
     color:  rgb(24, 144, 255);
     width: 136px;
-   
+   height: 44px;
         border: 1px solid rgb(24, 144, 255);
 
 
