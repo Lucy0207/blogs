@@ -111,6 +111,7 @@ export default function SignUp() {
               message: "Password must be less than 40 characters"
             }
           })} />
+          {errors.password && <p className={styles["error"]}>{errors.password.message}</p>}
         </div>
         <div className={styles['field']}>
           <label htmlFor="password">Repeat password</label>

@@ -7,7 +7,7 @@ import { BlogPostProps } from "../../interfaces/BlogPost.interface";
 
 import BlogHeading from "../BlogHeading/BlogHeading";
 
-const Blog: React.FC<BlogPostProps> = ({title, body, favoritesCount, createdAt, author, slug, favorited, tagList}: BlogPostProps) => {
+const Blog: React.FC<BlogPostProps> = ({title, body, createdAt, author, slug, tagList}: BlogPostProps) => {
     const avatar = "https://platform.kata.academy/uploads/student_atars/17730.jpg";
      const creationTime = moment(createdAt).format('MMMM D, YYYY');
 
@@ -20,9 +20,9 @@ const Blog: React.FC<BlogPostProps> = ({title, body, favoritesCount, createdAt, 
         
                 <BlogHeading
                 title={title} 
-                favoritesCount={favoritesCount}
+
                 slug={slug}
-                favorited={favorited}
+ 
     />
                 <div className={styles["heading-right"]}>
                     <div className={styles["person"]}>

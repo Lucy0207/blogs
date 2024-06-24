@@ -2,6 +2,8 @@ import { BlogPostProps } from "./BlogPost.interface";
 export interface BlogList {
   blogs: BlogPostProps[];
   currentPage: number;
-  totalPages: number
+articlesCount: number;
+favorited: boolean;
+favoritesCount: number;
   status: 'init' | 'loading' | 'error' | 'success';
 }

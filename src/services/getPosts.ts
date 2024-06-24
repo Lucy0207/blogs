@@ -10,9 +10,12 @@ interface FetchPostsResponse {
 
 export const getPosts = createAsyncThunk<FetchPostsResponse, number>(
   "blogs/getPosts",
-  async (page: number) => {
+  async (offset: number) => {
+    const limit = 5;
     try {
-      const { data } = await axios.get(`${PREFIX}/articles?page=${page}`);
+      const { data } = await axios.get(`${PREFIX}/articles`, {
+        params: { offset, limit }
+      });
       return {
         articles: data.articles,
         articlesCount: data.articlesCount,

@@ -39,7 +39,7 @@ const BlogPost: React.FC = () => {
         return <div>Loading...</div>;
   }
 
-  const { createdAt, description, title, favoritesCount, author, body, favorited, tagList } = post;
+  const { createdAt, description, title, author, body, tagList } = post;
   
      const creationTime: string = moment(createdAt).format('MMMM D, YYYY');
     const avatar: string = "https://platform.kata.academy/uploads/student_atars/17730.jpg";
@@ -65,7 +65,6 @@ const BlogPost: React.FC = () => {
   }
 
 
-
 return(
     <article className={styles["blogCard"]}>
             <header className={styles["heading"]}>
@@ -73,8 +72,7 @@ return(
                   <BlogHeading 
                 slug={slug}
                 title={title}
-                favoritesCount={favoritesCount}
-                favorited={favorited}          
+                       
                             />}
               
                 <div>
@@ -89,6 +87,7 @@ return(
                 </div>
                 
                      {user===author.username && <div className={styles["edit-buttons"]}>
+            
 
                                 <DeleteConfirmation
                                 

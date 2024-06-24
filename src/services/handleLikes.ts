@@ -15,7 +15,7 @@ export const setLikes = createAsyncThunk<string, string, { state: RootState }>(
       const jwt = thunkAPI.getState().user.jwt;
       
 
-      const response = await axios.post(
+      await axios.post(
         `${PREFIX}/articles/${slug}/favorite`,
         {},
         {
@@ -25,7 +25,7 @@ export const setLikes = createAsyncThunk<string, string, { state: RootState }>(
           },
         }
       );
-      console.log(`setLikes: Response: ${response.data}`);
+   
       return slug;
     } catch (e) {
       if (e instanceof AxiosError && e.response) {

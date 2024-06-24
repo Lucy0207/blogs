@@ -6,19 +6,17 @@ import Likes from '../Likes/Likes';
 interface BlogHeadingProps {
     title: string;
     slug: string;
-    favorited: boolean;
-    favoritesCount: number;
+
 
 }
 
-const BlogHeading: React.FC<BlogHeadingProps> = ({ title, slug, favoritesCount, favorited }) => (
+const BlogHeading: React.FC<BlogHeadingProps> = ({ title, slug}) => (
     <div className={styles["heading-left"]}>
         <h5>
             <Link to={`/articles/${slug}`} className={styles["heading-left__title"]}>{title}</Link>
         </h5>
         <Likes
-        favorited={favorited}
-        favoritesCount={favoritesCount}
+
         slug={slug} />
        </div>
 );

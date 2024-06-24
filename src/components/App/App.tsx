@@ -1,10 +1,8 @@
 import BlogList from "../BlogList/BlogList";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatcher } from "../../store/store";
+
 import { Route, Routes } from "react-router-dom";
 import BlogPost from "../BlogPost/BlogPost";
-import { useEffect } from "react";
-import { getPosts } from "../../services/getPosts";
+
 import SignUp from "../../pages/SignUp/SignUp";
 import Login from "../../pages/Login/Login";
 import Layout from "../../pages/Layout/Layout";
@@ -16,13 +14,7 @@ import RequireAuth from "../../hoc/RequireAuth";
 import EditArticlePage from "../../pages/EditArticlePage/EditArticlePage";
 
 export default function App() {
-      const dispatch = useDispatch<AppDispatcher>();
-    const currentPage = useSelector((s: RootState) => s.blogs.currentPage)
 
-
-    useEffect(() => {
-        dispatch(getPosts(currentPage))
-    }, [dispatch, currentPage])
 
 
     
