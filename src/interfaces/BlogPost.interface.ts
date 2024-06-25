@@ -7,10 +7,10 @@ export interface BlogPostProps {
   // updatedAt: string;
   tagList: string[];
   favorited: boolean;
-favoritesCount: number;
-author: {
+  favoritesCount: number;
+  author: {
     username: string;
     image: string;
-    following: boolean
-}
+    following: boolean;
+  };
 }

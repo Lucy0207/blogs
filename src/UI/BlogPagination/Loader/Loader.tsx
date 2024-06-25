@@ -1,7 +1,7 @@
-import { ConfigProvider, Spin } from 'antd';
+import { ConfigProvider, Spin } from "antd";
 
 const Loader: React.FC = () => {
-     return (
+  return (
     <div
       style={{
         display: "flex",
@@ -21,8 +21,6 @@ const Loader: React.FC = () => {
       </ConfigProvider>
     </div>
   );
-}
-
-
+};
 
 export default Loader;

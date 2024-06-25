@@ -1,15 +1,9 @@
-
-
-import { ButtonProps } from './Button.props';
+import { ButtonProps } from "./Button.props";
 
 export default function Button({ children, className, ...props }: ButtonProps) {
   return (
-    <button
-    className={className}
-      {...props}
-    >
+    <button className={className} {...props}>
       {children}
     </button>
   );
 }
-

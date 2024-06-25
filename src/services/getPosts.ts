@@ -1,7 +1,8 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios, { AxiosError } from 'axios';
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios, { AxiosError } from "axios";
+
 import { BlogPostProps } from "../interfaces/BlogPost.interface";
-import { PREFIX } from '../store/user.slice';
+import { PREFIX } from "../store/user.slice";
 
 interface FetchPostsResponse {
   articles: BlogPostProps[];
@@ -14,7 +15,7 @@ export const getPosts = createAsyncThunk<FetchPostsResponse, number>(
     const limit = 5;
     try {
       const { data } = await axios.get(`${PREFIX}/articles`, {
-        params: { offset, limit }
+        params: { offset, limit },
       });
       return {
         articles: data.articles,
@@ -26,5 +27,5 @@ export const getPosts = createAsyncThunk<FetchPostsResponse, number>(
       }
       throw e;
     }
-  }
+  },
 );

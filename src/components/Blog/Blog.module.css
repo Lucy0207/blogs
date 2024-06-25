@@ -1,12 +1,14 @@
 .blogCard {
     width: 941px;
-    
+   min-height: 140px;
+   max-height: 100%;
     border-radius: 5px;
     background: rgb(255, 255, 255);
-    padding: 15px 19px 15px 14px;
+    padding: 15px;
     margin-bottom: 26px;
    
 }
+
 
 
 .heading {
@@ -52,6 +54,7 @@
     overflow-wrap: anywhere;
     overflow: hidden;
     height: 90px;
+    text-align: left;
 
 }
 

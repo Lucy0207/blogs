@@ -1,28 +1,31 @@
-import styles from "./BlogPagination.module.css"
-import {Pagination, ConfigProvider  } from "antd";
-import { BlogPaginationProps } from "./BlogPagination.props";
-import { blogAction } from "../../store/blogs.slice";
+import { Pagination, ConfigProvider } from "antd";
 import { useDispatch, useSelector } from "react-redux";
+
+import { blogAction } from "../../store/blogs.slice";
 import { AppDispatcher, RootState } from "../../store/store";
 
- const BlogPagination: React.FC<BlogPaginationProps> = ({ totalResults }: BlogPaginationProps) => {
+import { BlogPaginationProps } from "./BlogPagination.props";
+import styles from "./BlogPagination.module.css";
 
+const BlogPagination: React.FC<BlogPaginationProps> = ({
+  totalResults,
+}: BlogPaginationProps) => {
   const dispatch = useDispatch<AppDispatcher>();
   const currentPage = useSelector((s: RootState) => s.blogs.currentPage);
 
-    const changeCurrentPage = (currentPage: number): void => {
+  const changeCurrentPage = (currentPage: number): void => {
     dispatch(blogAction.setPage(currentPage));
   };
 
-     return (
+  return (
     <ConfigProvider
       theme={{
         components: {
           Pagination: {
-            itemActiveBg: '#1890FF',
+            itemActiveBg: "#1890FF",
             lineWidth: 0,
-            colorPrimary: '#FFF',
-            colorPrimaryHover: '#FFF',
+            colorPrimary: "#FFF",
+            colorPrimaryHover: "#FFF",
           },
         },
       }}
@@ -34,11 +37,11 @@ import { AppDispatcher, RootState } from "../../store/store";
         showSizeChanger={false}
         current={currentPage}
         onChange={changeCurrentPage}
-        hideOnSinglePage={true}
+        hideOnSinglePage
         className={styles["pagination"]}
       />
     </ConfigProvider>
   );
-}
+};
 
 export default BlogPagination;
